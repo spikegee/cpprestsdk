@@ -74,7 +74,9 @@ done
 
 ## Configuration
 DEFAULT_BOOST_VERSION=1.69.0
-DEFAULT_OPENSSL_VERSION=1.1.0k
+DEFAULT_OPENSSL_VERSION=1.1.1
+CMAKE_IOS_TOOLCHAIN=3.1.2
+
 BOOST_VERSION=${BOOST_VERSION:-${DEFAULT_BOOST_VERSION}}
 OPENSSL_VERSION=${OPENSSL_VERSION:-${DEFAULT_OPENSSL_VERSION}}
 CPPRESTSDK_BUILD_TYPE=${CPPRESTSDK_BUILD_TYPE:-Release}
@@ -135,7 +137,7 @@ if [ ! -e ${ABS_PATH}/ios-cmake/ios.toolchain.cmake ]; then
         git clone https://github.com/leetal/ios-cmake ${ABS_PATH}/ios-cmake
     fi
     pushd ${ABS_PATH}/ios-cmake
-    git checkout 2.1.2
+    git checkout ${CMAKE_IOS_TOOLCHAIN}
     popd
 fi
 
