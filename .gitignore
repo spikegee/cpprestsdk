@@ -76,4 +76,6 @@ Build_iOS/Apple-Boost-BuildScript
 
 /out/
 
-Build_Mac.*/
+Build_Mac.*
+Build_iOS/ios-cmake*
+

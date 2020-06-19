@@ -75,11 +75,10 @@ done
 ## Configuration
 DEFAULT_BOOST_VERSION=1.69.0
 DEFAULT_OPENSSL_VERSION=1.1.1
-CMAKE_IOS_TOOLCHAIN=3.1.2
-
 BOOST_VERSION=${BOOST_VERSION:-${DEFAULT_BOOST_VERSION}}
 OPENSSL_VERSION=${OPENSSL_VERSION:-${DEFAULT_OPENSSL_VERSION}}
 CPPRESTSDK_BUILD_TYPE=${CPPRESTSDK_BUILD_TYPE:-Release}
+CMAKE_IOS_TOOLCHAIN=3.1.2
 
 ############################ No need to edit anything below this line
 
@@ -131,14 +130,18 @@ if [ ! -e ${ABS_PATH}/openssl/lib/libcrypto.a ]; then
 fi
 
 ## Fetch CMake toolchain
-
-if [ ! -e ${ABS_PATH}/ios-cmake/ios.toolchain.cmake ]; then
-    if [ ! -d "${ABS_PATH}/ios-cmake" ]; then
-        git clone https://github.com/leetal/ios-cmake ${ABS_PATH}/ios-cmake
+if [ ! -e ${ABS_PATH}/ios-cmake-$CMAKE_IOS_TOOLCHAIN/ios.toolchain.cmake ]; then
+    echo "Checkout ios cmake toolchain $CMAKE_IOS_TOOLCHAIN"
+    if [ ! -d "${ABS_PATH}/ios-cmake-$CMAKE_IOS_TOOLCHAIN" ]; then
+        git clone https://github.com/leetal/ios-cmake ${ABS_PATH}/ios-cmake-$CMAKE_IOS_TOOLCHAIN
+        rm -rf ${ABS_PATH}/ios-cmake
+        ln -s ${ABS_PATH}/ios-cmake-$CMAKE_IOS_TOOLCHAIN ${ABS_PATH}/ios-cmake
     fi
     pushd ${ABS_PATH}/ios-cmake
     git checkout ${CMAKE_IOS_TOOLCHAIN}
     popd
+else
+    echo "Already downloaded ios cmake toolchain $CMAKE_IOS_TOOLCHAIN"
 fi
 
 ## Build CPPRestSDK
